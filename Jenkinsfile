@@ -1,10 +1,42 @@
 pipeline {
-    agent { docker { image 'maven:3.9.8-eclipse-temurin-21-alpine' } }
-    stages {
-        stage('build') {
-            steps {
-                sh 'mvn --version'
-            }
-        }
-    }
+         agent any
+         stages {
+                 stage('Build') {
+                 steps {
+                     echo 'Hi, GeekFlare. Starting to build the App.'
+                 }
+                 }
+                 stage('Test') {
+                 steps {
+                    input('Do you want to proceed?')
+                 }
+                 }
+                 stage('Deploy') {
+                 parallel { 
+                            stage('Deploy start ') {
+                           steps {
+                                echo "Start the deploy .."
+                           } 
+                           }
+                            stage('Deploying now') {
+                            agent {
+                                    docker {
+                                            reuseNode true
+                                            image ‘nginx’
+                                           }
+                                    }
+                            
+                              steps {
+                                echo "Docker Created"
+                              }
+                           }
+                           }
+                           }
+                 stage('Prod') {
+                     steps {
+                                echo "App is Prod Ready"
+                              }
+                 
+              }
+}
 }
