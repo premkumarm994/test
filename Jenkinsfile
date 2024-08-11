@@ -2,14 +2,9 @@ pipeline {
     agent any  
     stages {  
             stage ('Build') {  
-            }  
-            stage ('Test') {   
-            }  
-            stage ('QA') {   
-            }  
-            stage ('Deploy') {  
-            }  
-            stage ('Monitor') {  
+                steps {  
+                        echo 'Running build phase...'  
+                }  
             }  
     }  
 }  
